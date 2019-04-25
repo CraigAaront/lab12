@@ -143,7 +143,7 @@ public class DataEntryFrame extends JFrame
         this.add(address);
         */
 
-		JPanel formFill = new JPanel(/*add layout manager */ new GridLayout(8,1));
+		JPanel formFill = new JPanel(/*add layout manager */ new GridLayout(8,2));
         formFill.add(firstNameInfo);
         formFill.add(firstName);
         
@@ -167,8 +167,7 @@ public class DataEntryFrame extends JFrame
 
         formFill.add(addressInfo);
         formFill.add(address);
-
-        
+      
         this.add(formFill);
 
 		// Add in the signature panel:
@@ -181,6 +180,10 @@ public class DataEntryFrame extends JFrame
 			public void mouseDragged(MouseEvent e)
 			{
 				// TODO: add a point to the panel on drag and repaint.
+			    Point point = new Point(e.getX(), e.getY());
+			    spanel.addPoint(point);
+			    spanel.repaint();
+			    
 			}
 		});
 		this.add(signatureInfo);
