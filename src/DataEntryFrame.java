@@ -1,3 +1,4 @@
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -95,7 +96,15 @@ public class DataEntryFrame extends JFrame
 	 */
 	private void setVisuals(FormData data)
 	{
-		// TODO: set the text fields and the signature as corresponding to the fields in FormData.
+		//set the text fields and the signature as corresponding to the fields in FormData.
+	    firstName.setText(data.getFirstName());
+	    middleInitial.setText("" + data.getMiddleInitial());
+	    lastName.setText(data.getLastName());
+	    displayName.setText(data.getDisplayName());
+	    SSN.setText(data.getSSN());
+	    phone.setText(data.getPhone());
+	    email.setText(data.getEmail());
+	    address.setText(data.getAddress());
 	}
 
 	/**
@@ -123,10 +132,44 @@ public class DataEntryFrame extends JFrame
 		});
 		this.add(formSelect);
 
-		// TODO: add in all form-fillable components:
-		JPanel formFill = new JPanel(/* TODO: add layout manager */);
-		// TODO: add to panel...
-		this.add(formFill);
+		//add in all form-fillable components:
+		/*this.add(firstName);
+        this.add(middleInitial);
+        this.add(lastName);
+        this.add(displayName);
+        this.add(SSN);
+        this.add(phone);
+        this.add(email);
+        this.add(address);
+        */
+
+		JPanel formFill = new JPanel(/*add layout manager */ new GridLayout(8,1));
+        formFill.add(firstNameInfo);
+        formFill.add(firstName);
+        
+        formFill.add(midddleInitialInfo);
+        formFill.add(middleInitial);
+
+        formFill.add(lastNameInfo);     
+        formFill.add(lastName);
+
+        formFill.add(displayNameInfo);
+        formFill.add(displayName);
+
+        formFill.add(SSNInfo);
+        formFill.add(SSN);
+
+        formFill.add(phoneInfo);
+        formFill.add(phone);
+
+        formFill.add(emailInfo);
+        formFill.add(email);
+
+        formFill.add(addressInfo);
+        formFill.add(address);
+
+        
+        this.add(formFill);
 
 		// Add in the signature panel:
 		spanel.addMouseMotionListener(new MouseMotionListener()
