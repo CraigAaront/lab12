@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -259,7 +260,7 @@ public class DataEntryFrame extends JFrame
 
 		// Add in the error message field:
 		this.errorField.setEditable(false);
-		// TODO: add error field to frame
+		// : add error field to frame
 		this.add(errorField);
 
 		// Add in the import/export panel:
@@ -267,12 +268,17 @@ public class DataEntryFrame extends JFrame
 
 		// TODO: Import from a file: you will import a list of FormData objects and should use this to replace
 		// the data in datalist.
+		
 		importButton.addActionListener((e) -> {
 
 			// TODO: Choose a file (hint, use JFileChooser):
+		    JFileChooser fileChooser = new JFileChooser();
+
 			// TODO: extract object from a file (hint, use file.getAbsolutePath()):
 			//		 You will use the file to replace the datalist object. I.e. you will be loading in a new
 			//		 list of formdata.
+		    
+		    
 			// TODO: display error message on fail, else display success message
 
         	// Use this code snippet to reset visuals after importing:
@@ -293,7 +299,10 @@ public class DataEntryFrame extends JFrame
 		});
 
 		// TODO: add import/export to panel and add to frame
-
+		JPanel panel = new JPanel(new GridLayout(1,0));
+		panel.add(importButton);
+		panel.add(exportButton);
+		this.add(panel);
 		// JFrame basics:
 		this.setTitle("Example Form Fillout");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
