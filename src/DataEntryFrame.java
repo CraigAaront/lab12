@@ -105,6 +105,7 @@ public class DataEntryFrame extends JFrame
 	    phone.setText(data.getPhone());
 	    email.setText(data.getEmail());
 	    address.setText(data.getAddress());
+	    spanel.setSignature(data.getSignature());
 	}
 
 	/**
@@ -179,11 +180,11 @@ public class DataEntryFrame extends JFrame
 			@Override
 			public void mouseDragged(MouseEvent e)
 			{
-				// TODO: add a point to the panel on drag and repaint.
+				//add a point to the panel on drag and repaint.
+			    ArrayList<Point> points = new ArrayList<Point>();
 			    Point point = new Point(e.getX(), e.getY());
 			    spanel.addPoint(point);
-			    spanel.repaint();
-			    
+			    spanel.repaint();		    
 			}
 		});
 		this.add(signatureInfo);
@@ -207,30 +208,59 @@ public class DataEntryFrame extends JFrame
 		JButton saveForm = new JButton("Save");
 		saveForm.addActionListener((e) -> {
 			int select = formSelect.getSelectedIndex();
-
-			// TODO: use the JTextFields and the signature panel to set the values
+			boolean success;
+			// use the JTextFields and the signature panel to set the values
 			// of the selected FormData object.
+
+			FormData saveData = datalist.get(select);
+			if (saveData.setValues(this.firstName.getText(), this.middleInitial.getText().charAt(0), this.lastName.getText(), 
+			        this.displayName.getText(), this.SSN.getText(), this.phone.getText(),
+			        this.email.getText(), this.address.getText(), this.spanel.getSignature()) == true) {
+		          datalist.set(select, saveData);
+		          success = true;    
+			}
+			else {
+			    success = false;
+			}
+			
 
 			this.setVisuals(datalist.get(select));
 			DefaultComboBoxModel<String> newComboBoxModel = getComboBoxModel(datalist);
 			formSelect.setModel(newComboBoxModel);
 			formSelect.setSelectedIndex(select);
 
-			// TODO: display an error message if setting the values failed. Else, display a success message.w
+			//  display an error message if setting the values failed. Else, display a success message.w
+			if (success == false) {
+			    errorField.setText("Failed to save");
+			}
+			else {
+			    errorField.setText("Success");
+			}
 		});
 
 		JButton resetForm = new JButton("Reset");
 		resetForm.addActionListener((e) -> {
 			int select = formSelect.getSelectedIndex();
-			// TODO: reset the values on the selected form data
+			// : reset the values on the selected form data
+			
+			FormData reset = datalist.get(select);
+			reset.reset();
+			spanel.clear();
+			spanel.repaint();
+			datalist.set(select, reset);
 			this.setVisuals(datalist.get(select));
 		});
-
-		// TODO: add buttons to panel and add to frame
+		
+		formHandling.add(createForm);
+		formHandling.add(saveForm);
+		formHandling.add(resetForm);
+		this.add(formHandling);
+		// : add buttons to panel and add to frame
 
 		// Add in the error message field:
 		this.errorField.setEditable(false);
 		// TODO: add error field to frame
+		this.add(errorField);
 
 		// Add in the import/export panel:
 		JButton importButton = new JButton("Import");
